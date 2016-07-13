@@ -3,19 +3,18 @@
 <head>
 	<meta charset="utf-8">
 	<title>LOG</title>
+	<link href="{{site.baseurl}}/css/common.css" rel="stylesheet">
 </head>
 <body>
 	<header>
-		<nav>
-		  	<ul>
-				<li><a href ="{{site.baseurl}}/index.html">HOME</a></li>
-				<li><a href ="{{site.baseurl}}/about.html">ABOUT</a></li>
-			</ul>
-		</nav>
+		{% include nav.html %}
 	</header>
 
 
-{{content}}
+	{{content}}
+	
+	<footer>
+	</footer>
 
 </body>
 </html>
