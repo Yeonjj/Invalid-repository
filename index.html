@@ -1,8 +1,31 @@
 ---
 layout: default
 ---
+<div id="table">
+    <div id="pagename">
+    	<p>Main.js</p>
+    </div>
+{% for post in site.posts %}
 
-<h1>This is Test</h1>
-<p> test tets test </p>
+    <div id="post-meta">
+    	{{post.title}}
+    </div>
+
+    <div id="post-summary">
+	{% assign words = post.content | split: " " %}
+	{% assign counter = post.content | number_of_words %}
+	{% for i in (0..counter) %}
+		{% if words[i] contains '斷' %}
+			{% for j in (0..i) %}
+				{{ words[j] }}
+			{% endfor %}
+			{% break %}
+		{% endif %}
+	{% endfor %}
+    </div>
+{% endfor %}
+
+</div>
+
 
 

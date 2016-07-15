@@ -1,32 +1,86 @@
-html {
-	margin: 0;
-	padding: 0;
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans);
 
+html {
+	margin: 0; padding: 0;
 	font-style: normal;
 }
+
+body {
+	margin-left: 50px;
+}
+
+#table {
+	font-family: 'Palatino Linotype', 'Noto Sans', 'sans-serif';
+      	color: #252519;
+	margin: 0; padding: 0;
+}
+.pagename {
+	font-size: 15px;
+ 	line-height: 22px;
+}
+
 .nav {
-	margin:0;
-	padding:0;
+	margin:0;	padding:0;
 	list-style-type:none;
 
 }
+
 .nav > li{
 	display: inline-block;
 }
-a:link {
+
+a:link, a:visited, a:hover{
        	color: black;	
        	text-decoration: none;
 }
-a:visited { 	
-	color: black;
-       	text-decoration: none;
-}
-a:hover { 
-	color: black; 
-	text-decoration: underline;
-}
 
 li a.current {
-	background-color: #EDE5B9;
-	color: #f52020;
+	background-color: #f52020;
+	color: #EDE5B9;
+}
+
+#table {
+	margin:0 auto; 
+	width:100%;
+}
+#pagename {
+	width:100%; 
+	height:70px;
+	display: table-cell;
+	vertical-align: bottom;
+
+}
+#post-meta {
+	width: 21%;
+	height: 100px;
+	float: left;
+	font-size: 13px;
+	text-align: left;
+}
+
+#post-summary {
+	width:60%; 
+	min-height:100px;
+        max-height:340px;	
+	float:left;
+	overflow:hidden;
+}
+#post-summary p{
+	margin-top: 0;
+	padding-left: 20px;
+	border-left-style: dotted;
+	border-left-width: 1px
+}
+@media screen and (max-width: 480px) { 
+	#post-meta {float:none; width:100%;}
+	#post-summary {float:none; width:100%; }
+}
+
+div.navigate {
+	position: fixed;
+	right: 0;
+	top: 0;
+	background-color: red;
+	overflow: hidden;
+   	text-overflow: ellipsis;
 }

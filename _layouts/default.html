@@ -4,18 +4,29 @@
 	<meta charset="utf-8">
 	<title>LOG</title>
 	<link href="{{site.baseurl}}/css/common.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="{{site.baseurl}}/js/nav.js"></script>
+
 </head>
 <body>
 	<header>
-		{% include nav.html %}
-	</header>
+		<div class="navigate">
+			<ul class="all-posts">
+			{% for post in site.posts %}
+				<li class="{{post.title}}" style="display:none;">{{site.posts}}</li>
+			{% endfor %}
+			</ul>
+			testing
+		</div>
 
+	</header>
 
 	{{content}}
 	
-	<footer>
-	</footer>
-
+	
 </body>
+<footer>
+   	<a href = "{{site.baseurl}}/portfolio/index.html">go to my portfolio</a>
+</footer>	
 </html>
 
