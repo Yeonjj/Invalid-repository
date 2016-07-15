@@ -9,16 +9,7 @@
 </head>
 <body>
 	<header>
-		<div class="navigate" style="display:inline; background-color:red;">
-			<ul class="all-posts" style="display:none;">
-			{% for post in site.posts %}
-				<li class="{{post.title}}">{{post.title}}</li>
-			{% endfor %}
-			</ul>
-			testing
-		</div>
-		
-
+		{% include nav.html %}
 	</header>
 
 	<div class = "content">{{content}}</div>
