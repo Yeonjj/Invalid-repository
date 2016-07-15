@@ -6,27 +6,22 @@
 	<link href="{{site.baseurl}}/css/common.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="{{site.baseurl}}/js/nav.js"></script>
-
 </head>
 <body>
 	<header>
-		<div class="navigate">
-			<ul class="all-posts">
+		<div class="navigate" style="display:inline; background-color:red;">
+			<ul class="all-posts" style="display:none;">
 			{% for post in site.posts %}
-				<li class="{{post.title}}" style="display:none;">{{post.title}}</li>
+				<li class="{{post.title}}">{{post.title}}</li>
 			{% endfor %}
 			</ul>
 			testing
 		</div>
+		
 
 	</header>
 
-	{{content}}
-	
-	
+	<div class = "content">{{content}}</div>
 </body>
-<footer>
-   	<a href = "{{site.baseurl}}/portfolio/index.html">go to my portfolio</a>
-</footer>	
 </html>
 

@@ -1,11 +1,10 @@
 $(document).ready(function(){
-	var posts = $("ul.all-posts > li").size();
-	$(".navigate")
+	$("div.navigate")
 		.mouseover(function(){
-			$("ul.all-posts >li").css('display','');	
-		});
+			$("ul.all-posts").css('display','inherit');
+		})
 		.mouseleave(function(){
-			$("ul.all-posts >li").css('display','none');	
+			$("ul.all-posts").css('display','none');	
 		});	
 });
 
