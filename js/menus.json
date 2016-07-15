@@ -1,0 +1,17 @@
+{
+  "menus": 
+  [
+    {
+      "menuname": "post",
+      "submenu": {
+        "tags": [ "a", "b", "c" ],
+        "category": [ "d", "e", "f" ]
+      }
+    },{
+      "menuname": "portfolio",
+      "submenu": {
+        "project": [ "a", "b", "c" ]
+      }
+    }
+  ]
+}
