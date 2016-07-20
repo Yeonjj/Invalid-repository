@@ -3,13 +3,12 @@
 var animatedMenuBar = {
 	arry: [],
 	addChildTo: function(val, parent){
-	    $(parent).children().each(function () {
-	        val.push($(this));
-	    });	
+
 	}
 	create: function (parent, menutag) {
-	    addChildTo(animatedMenuBar.arry, parent);
-	    
+	    $(parent).children().each(function () {
+	        animatedMenuBar.arry.push($(this));
+	    });		
 	    $(menutag).mouseover(function () {
 	        var distance = 27;
 	        for (var i = 1; i < 5; i++) {
