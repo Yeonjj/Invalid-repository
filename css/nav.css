@@ -3,23 +3,74 @@
 	list-style-type:none;
 }
 
-.nav > li{
-	display: inline-block;
-}
-
-li a.current {
-	background-color: #f52020;
-	color: #EDE5B9;
-}
-
 div.navigate {
 	position: fixed;
 	right: 0;
 	top: 0;
-	background-color: red;
+	background-color: white;
 	overflow: hidden;
    	text-overflow: ellipsis;
 	max-width: 10%
 }
 
+div.nav {
+	
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 140px; 
+	width: 100px;
+}
 
+div.menu {
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	position:fixed;
+	background-color:red; 
+	top:0; 
+	right:0;
+	font-size: 100%;
+	color: wheat;
+	padding-left: 1%;
+	padding-right:2%
+}
+
+div.post, div.about, div.portfolio, div.contect {
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);	
+	position:fixed;
+       	background-color: white;
+       	top:30px;
+       	right:0;
+       	opacity:0;
+
+	font-size: 100%;
+	padding-left: 1%;
+	padding-right:3%
+}
+div.portfolio div.submenu {
+	position: fixed; 
+	height: 150px; 
+	width: 100px;
+}
+div.portfolio div.submenu div.proj{
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	position:fixed;
+       	background-color:white; 
+	right:70px; 
+	opacity:0;
+
+	font-size: 100%;
+	padding-right:2%;
+	padding-left:1%
+}
+
+div.post div.submenu {
+	position: fixed; 
+	height: 130px; 
+	width: 90px;
+}
+div.post div.submenu div.posts{
+	position:fixed;
+       	background-color:red; 
+	right:70px; 
+	opacity:0;
+}
