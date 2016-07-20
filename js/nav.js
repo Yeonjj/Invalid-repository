@@ -2,12 +2,10 @@
 ---
 var animatedMenuBar = {
 	arry: [],
-	addChildTo: function(val, parent){	
+	create: function (parent, menutag) {
 	    $(parent).children().each(function () {
 	        animatedMenuBar.arry.push($(this));
 	    });	
-	},
-	create: function (parent, menutag) {
 	    addChildTo(this.arry, parent);	    	
 	    $(menutag).mouseover(function () {
 	        var distance = 27;
