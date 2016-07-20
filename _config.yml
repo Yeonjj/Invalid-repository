@@ -1,4 +1,6 @@
 markdown: kramdown
+
+highlighter: rouge
+
 exclude: [".swp"]
 baseurl: /logswithproj
- 

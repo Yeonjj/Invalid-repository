@@ -1,26 +1,54 @@
 ---
 ---
+function ChildManager(){
+	
+}
+
+
 $(document).ready(function () {
-	var xmlhttp = new XMLHttpRequest(), json;
-	xmlhttp.open('GET', '{{site.baseurl}}/js/data/menus.json', true);
-	xmlhttp.send();	
 	
-	var jsonObj = $.parseJSON('{"a":1,"b":3,"ds":4}');
-	var html = '<table border="1">';
-	$.each(jsonObj, function (key, value) {
-		html += '<tr>';
-		html += '<td>' + key + '</td>';
-		html += '<td>' + value + '</td>';
-		html += '</tr>';
+	/*var childElem = {
+		arry : {[]};
+		getChild : function(DOMelement){
+			var arry = this.arry;
+			$(DOMelement).children().each(function(){
+				arry.push($(this));
+			})
+		};
+	}
+	childElem.getChild("div.menu");
+
+	function ChildElem(){
+		this.alchild = [];
+	}
+	
+	ChildElem.prototype = {
+		getChild : function (element){
+			$(element).children().each(function(elemt){
+				this.childArry.push(elemt);	
+			});
+		}
+	
+	};
+	
+
+	var childarry = new ChildElem();
+	childarry.getChild("div.nav");
+	*/
+	
+
+	var json;	
+	
+	$.getJSON('{{site.baseurl}}/js/data/menus.json', function(data){
+		json = $parseJSON(data);
 	});
-	html += '</table>';
-	
-	$('p.convert').html(html);
-	
-	var childElem = new Array();
+
+	var childElem = [];
+
 	$("div.nav").children().each(function () {
 		childElem.push($(this));
 	});
+
 	$("div.menu").mouseover(function () {
 		var distance = 27;
 		for (var i = 1; i < 5; i++) {

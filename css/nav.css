@@ -1,0 +1,25 @@
+.nav {
+	margin:0;	padding:0;
+	list-style-type:none;
+}
+
+.nav > li{
+	display: inline-block;
+}
+
+li a.current {
+	background-color: #f52020;
+	color: #EDE5B9;
+}
+
+div.navigate {
+	position: fixed;
+	right: 0;
+	top: 0;
+	background-color: red;
+	overflow: hidden;
+   	text-overflow: ellipsis;
+	max-width: 10%
+}
+
+

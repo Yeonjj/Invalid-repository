@@ -8,10 +8,13 @@ layout: default
 {% for post in site.posts %}
 
     <div id="post-meta">
-    	{{post.title}}
+	{{post.title}}</br>
+	{{post.projectdue}}</br>
+	{{post.date}}
     </div>
 
     <div id="post-summary">
+	<a href ="{{site.baseurl}}{{post.url}}">
 	{% assign words = post.content | split: " " %}
 	{% assign counter = post.content | number_of_words %}
 	{% for i in (0..counter) %}
@@ -22,6 +25,7 @@ layout: default
 			{% break %}
 		{% endif %}
 	{% endfor %}
+	</a>
     </div>
 {% endfor %}
 
