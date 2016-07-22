@@ -1,0 +1,156 @@
+---
+layout: codedoc  
+---
+
+<header>
+	{% include phploginclass_nav.html %}
+</header>
+<div class = "codedoc">
+<table class="code-discription">
+<tr>
+	<th class="discription">
+
+		<h3>dbconn.php</h3>
+	</th>
+
+	<th class= "code">
+		Copyright (c) 2016년 petechoi. All rights reserved.</br>   
+	</th>
+
+<tr>
+   
+	<td class = "disctiption">
+데이터베이스에 연결합니다.
+	</td>
+  	<td class="code">
+		<pre><code class="php">
+<?php
+class DatabaseConnect {
+
+    function dbconn(){
+
+        $host_name  = "데이터베이스 서버주소로 바꿔주세요";
+        $user_id  = "데이터베이스 사용자 아이디입니다";
+        $password   = "패스워드 입니다";
+        $database_name = "데이터베이스 이름입니다."; 
+
+
+        $link = mysql_connect($host_name ,$user_id ,$password) or die ("db connection 실패 스트립트 종료"); 
+    	mysql_select_db($database_name, $link) or die("db Fail 실패 스크립트 종료");
+        return $link;
+    }
+}   
+?>
+		</code></pre>
+	</td>
+
+</tr>
+
+
+<tr>
+	<th class="discription">
+
+		<h3>logedin.php</h3>
+	</th>
+	
+	<th class= "code">
+		<html>
+	<head>
+<?php
+	session_save_path('./');
+	session_start();
+	include 'login_logic.php';
+	#직접접근하는 세션을 막고 리다이렉션을 하기위한 코드 입니다.
+	if(!isset($_SESSION['howlong'])){header("Location: $homeurl login.php?sessionerror=1&logout=1"); exit;}
+	#isSessExpired가 타임아웃을 감지하면 세션은 종료됩니다.
+	if(Letslogin::isSessExpired()){header("Location: $homeurl login.php?sessionerror=1&logout=1"); exit;}
+?>	
+		<title>로그인 성공!!</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	</head>
+	<body>
+
+		<h1>로그인에 성공하였습니다.</h1>
+		<p>당신의 접근 래벨은 <?php echo $_SESSION['userlevel']; ?> 입니다.</br>
+		당신의 아이피 주소입니다 <?php echo $_SESSION['USER_IP']; ?></p>
+		<a href=<?php echo $homeurl."login.php?logout=1"?>>  
+  	 		<button>logout</button>
+		</a>
+		
+
+
+	</body>
+</html>
+
+	</th>
+
+<tr>
+
+
+
+<tr>
+   
+	<td class = "disctiption">
+
+	</td>
+  	<td class="code">
+		<pre><code class="php">
+		</code></pre>
+	</td>
+
+</tr>
+
+<tr>
+   
+	<td class = "disctiption">
+
+	</td>
+  	<td class="code">
+		<pre><code class="php">
+		</code></pre>
+	</td>
+
+</tr>
+
+<tr>
+   
+	<td class = "disctiption">
+
+	</td>
+  	<td class="code">
+		<pre><code class="php">
+		</code></pre>
+	</td>
+
+</tr>
+
+<tr>
+   
+	<td class = "disctiption">
+
+	</td>
+  	<td class="code">
+		<pre><code class="php">
+		</code></pre>
+	</td>
+
+</tr>
+
+<tr>
+   
+	<td class = "disctiption">
+
+	</td>
+  	<td class="code">
+		<pre><code class="php">
+		</code></pre>
+	</td>
+
+</tr>
+
+
+
+</table>
+</div>
+
+

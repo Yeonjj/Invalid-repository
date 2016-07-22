@@ -1,3 +1,15 @@
 div.post_content {
-	width:60%; left:0; right:0; margin-left:auto; margin-right:auto;
+	width:65%; 
+	left:0; 
+	right:0; 
+	margin-left:auto; 
+	margin-right:auto;
+	margin-top:100px;
+	padding-top:50px;
+	padding-bottom:50px;
+	padding-left:20px;
+	padding-right:20px;
+	background-color: #f9f9f9;
+	border-left: 1px solid #e5e5ee;
+	
 }

@@ -1,73 +1,249 @@
 ---
-layout: default  
+layout: codedoc
 ---
 
+<header>
+	{% include mortgage_nav.html %}
+</header>
 
+<div class = "codedoc">
 <table class="code-discription">
 <tr>
-	<td>
+	<th class="discription">
 
-  AppDelegate.m
-  Mortgage Calculator
+		<h3>ViewController.h</h3>
+	</th>
 
-  Created by realsun on 2016. 1. 22..
-  Copyright (c) 2016년 petechoi. All rights reserved.
+	<th class= "code">
+		Mortgage Calculator</br>
+		
+		Created by realsun on 2016. 1. 22..
+		Copyright (c) 2016년 petechoi. All rights reserved.
+	</th>
 
+</tr>
+<tr>
+	<td class = "discription">
+		`ViewController`는 입력받은 사용자의 데이터가 `CalculatorDataSource` 프로토콜을 준수하도록 가공하여 해당 프로토콜을 이용하는 모델들(여기서는 `CalculatorModel` 하나)이 데이터를 사용 할 수 있도록 하는 역할을 담당합니다. 또한 사용자가 입력한 명령(여기서는 계산공식)을 모델로 전달해 줍니다. </br></br> 
 	</td>
-	<td>
+  	<td class="code">
 		<pre><code class="objective-c">
-#import "AppDelegate.h"
-#import "ViewController.h"
+@interface ViewController : UIViewController <CalculatorDataSource>
+		</code></pre>
+	</td>
 
-@interface AppDelegate ()
+</tr>
+
+<tr>
+	<th class="discription">
+
+		<h3>ViewController.m</h3>
+	</th>
+
+	<th class= "code">
+	</th>
+
+</tr>
+
+<tr>
+	<td class = "discription">
+프로퍼티들...  
+	</td>
+  	<td class="code">
+		<pre><code class="objective-c">
+#define mDEBUG
+
+
+void (^logObject) (id) = ^(id obj) { NSLog(@"Object Description: %@\n\n", [obj description]); };
+
+
+@interface ViewController (){
+    NSArray *allButton;
+    NSArray *allTextfield;
+    NSNumber *data, *calResult;
+    ButtonRecognizer bottonrecog;
+    NSDictionary *allValriable;
+}
+
+
+@property (nonatomic, strong) IBOutlet UITextField *textField_N;
+@property (nonatomic, strong) IBOutlet UITextField *textField_NperYr;
+@property (nonatomic, strong) IBOutlet UITextField *textField_Pmt;
+@property (nonatomic, strong) IBOutlet UITextField *textField_PV;
+@property (nonatomic, strong) IBOutlet UITextField *textField_I;
+@property (nonatomic, strong) IBOutlet UITextField *textField_FV;
+
+@property (nonatomic, strong) IBOutlet UIButton *boutton_N;
+@property (nonatomic, strong) IBOutlet UIButton *boutton_NperYr;
+@property (nonatomic, strong) IBOutlet UIButton *boutton_Pmt;
+@property (nonatomic, strong) IBOutlet UIButton *boutton_PV;
+@property (nonatomic, strong) IBOutlet UIButton *boutton_I;
+@property (nonatomic, strong) IBOutlet UIButton *boutton_FV;
+
 
 @end
 
-@implementation AppDelegate
+
+
+@implementation ViewController 
+
+@synthesize textField_N,textField_FV,textField_I,textField_NperYr,textField_Pmt,textField_PV,boutton_FV,boutton_I,boutton_N,boutton_NperYr,boutton_Pmt,boutton_PV;
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    allButton = [[NSArray alloc] initWithObjects:boutton_N,boutton_NperYr,boutton_Pmt,boutton_PV,boutton_I,boutton_FV, nil];
+    allTextfield = [[NSArray alloc] initWithObjects:textField_N,textField_NperYr,textField_Pmt,textField_PV,textField_I,textField_FV, nil];
+    allValriable = [[NSMutableDictionary alloc] initWithCapacity:allTextfield.count];
+    
+		</code></pre>
+	</td>
+
+</tr>
+
+<tr>
+	<td class = "discription">
+모든 버튼을 순회하며 runCalculation 콜백메시지를 붙여줍니다. 해당 메시지는 버튼을 눌럿다땟을때 보내집니다.
+ 
+	</td>
+  	<td class="code">
+		<pre><code class="objective-c">
+    [allButton enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UIButton *buttobj = [allButton objectAtIndex:idx];
+        buttobj.tag = idx;
+        [obj addTarget:self action:@selector(runCalculation:) forControlEvents:UIControlEventTouchUpInside];
+    }];
+		</code></pre>
+	</td>
+</tr>
+
+
+<tr>
+	<td class = "discription">
+모든 텍스트 창에 variableInTextField 메시지를 붙여줍니다. 해당 메시지는 편집이 마쳐졌을 때 호출됩니다.
+
+	</td>
+  	<td class="code">
+		<pre><code class="objective-c">
+    [allTextfield enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop){
+        UITextField *text =[allTextfield objectAtIndex:idx];
+        text.tag =idx;
+        [obj addTarget:self action:@selector(variableInTextField:) forControlEvents:UIControlEventEditingDidEndOnExit]; 
+    }];
+
+#pragma mark - defult setting
+    //각버튼의 상태 플래그를 normal 로 설정합니다.
+    [boutton_FV setTitle:@"FV" forState:UIControlStateNormal];
+    [boutton_I setTitle:@"I" forState:UIControlStateNormal];
+    [boutton_N setTitle:@"N" forState:UIControlStateNormal];
+    [boutton_NperYr setTitle:@"N/Yr" forState:UIControlStateNormal];
+    [boutton_Pmt setTitle:@"Pmt" forState:UIControlStateNormal];
+    [boutton_PV setTitle:@"PV" forState:UIControlStateNormal];
+
+
+    textField_N.text = @"30";
+    [self performSelector:@selector(variableInTextField:) withObject:textField_N];
+    textField_I.text = @"10";
+    [self performSelector:@selector(variableInTextField:) withObject:textField_I];
+    textField_NperYr.text = @"12";
+    [self performSelector:@selector(variableInTextField:) withObject:textField_NperYr];
+    textField_Pmt.text = @"877.61";
+    [self performSelector:@selector(variableInTextField:) withObject:textField_Pmt];
+    textField_PV.text =@"100000";
+    [self performSelector:@selector(variableInTextField:) withObject:textField_PV];
+    
+}
+
+
 		</code></pre>
 	</td>
 </tr>
 
 <tr>
-	<td>
-참고적으로 저는 공부를 위해서 스토리보드를 쓰지 않고 굳이 이렇게 하였습니다.
-윈도우를 직접만들어 보는 것이 원리를 파악하는데 도움이 된다고 생각했습니다.  
+	<td class = "discription">
+여기서부터가 문제인데 리팩토링이 되어있지 않아서 중복되는 코드가 좀 있습니다. 이 코드는 한번도 리팩토링을 거치지않은 코드임으로 양해 부탁드립니다.
 	</td>
-	<td>
+  	<td class="code">
 		<pre><code class="objective-c">
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    self.window =  [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
-    return YES;
+-(void)runCalculation:(UIButton *)sender{
+    [self mRefresh];
+    UITextField *a = [allTextfield objectAtIndex:(NSUInteger)sender.tag];
+
+    if (allValriable.count< 5) {
+        UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Incomplete Variables"
+                                                       message:@"Please enter over four variables"
+                                                      delegate:nil
+                                             cancelButtonTitle:@"dismiss"
+                                             otherButtonTitles:nil];
+        [alert show];
+    }else{
+        bottonrecog = sender.tag;
+        CalculatorModel *calcul = [[CalculatorModel alloc]init];
+        [calcul setDataSource:self];
+        NSLog(@"result %@",[calcul result]);
+        a.text = [NSString stringWithFormat:@"%@",[calcul result]];
+    }
+}
+		</code></pre>
+	</td>
+</tr>
+
+<tr>
+	<td class = "discription">
+택스트 창에 내용이 수정될 때마다 호출됩니다.
+	</td>
+  	<td class="code">
+		<pre><code class="objective-c">
+- (void)variableInTextField:(UITextField *)sender{
+    [self mRefresh];
+    NSLog(@"%@", allValriable);
+    data = [NSNumber numberWithDouble:[sender.text doubleValue]];
+    [allValriable setValue:data forKey:[NSString stringWithFormat:@"%ld",(long)sender.tag]];
+    
+    NSLog(@"%@",allValriable);
+    [sender resignFirstResponder];
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+- (NSDictionary *)variableInTextField{
+    return allValriable;
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (ButtonRecognizer)calculationTabbed{
+    [self mRefresh];
+    return bottonrecog;
+}		</code></pre>
+	</td>
+</tr>
+
+<tr>
+	<td class = "discription">
+텍스트 창안에 내용을 확인합니다.
+새로고침을 할 때마다 모든 변수값에 해당 텍스트 내용을 갱신합니다.
+이 당시에 이코드를 짤때는 콜백을 이용하여 눌린 버튼 측에서 메시지를 보내서 눌린버튼만 갱신하는 것을 생각하지 못했기 때문에
+이런식으로 짜게 되었습니다.
+	</td>
+  	<td class="code">
+		<pre><code class="objective-c">
+- (void)mRefresh{
+    for (UITextField *textfield in allTextfield){
+        if ([textfield.text isEqualToString:@""]){
+            NSLog(@"textfild is empty: %@", textfield);
+            [allValriable setValue:nil forKey:[NSString stringWithFormat:@"%ld",(long)textfield.tag]];
+        }else [allValriable setValue:textfield.text forKey:[NSString stringWithFormat:@"%ld",(long)textfield.tag]];
+    }
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
 
 @end
 		</code></pre>
 	</td>
+
 </tr>
+
+
 </table>
+</div>

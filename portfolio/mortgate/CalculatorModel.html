@@ -1,73 +1,239 @@
 ---
-layout: default  
+layout: codedoc
 ---
 
+<header>
+	{% include mortgage_nav.html %}
+</header>
 
+<div class = "codedoc">
 <table class="code-discription">
-<tr>
-	<td>
+	<tr>
+		<th class="discription">
+			<h3>CalculatorModel.h</h3>
+		</th>
+	
+		<th class= "code">
+			Mortgage Calculator</br>
 
-  AppDelegate.m
-  Mortgage Calculator
+			Created by realsun on 2016. 1. 24..</br>
+			Copyright (c) 2016년 petechoi. All rights reserved.</br>
+		</th>
+	
+	</tr>
 
-  Created by realsun on 2016. 1. 22..
-  Copyright (c) 2016년 petechoi. All rights reserved.
+	<tr>
+		<td class = "discription">
+window application에서 플래그를 통해 메시지큐의 내용을 처리하듯이 계산버튼을 누를 때 해당플래그를 발생시켜서 이벤트를 처리합니다.	
+		</td>
+  		<td class="code">
+			<pre><code class="objective-c">
+typedef NS_ENUM(NSInteger, ButtonRecognizer){
+    NbuttonTabbed,
+    NperYrbuttonTabbed,
+    PmtbuttonTabbed,
+    PVbuttonTabbed,
+    IbuttonTabbed,
+    FVbuttonTabbed
+};
+			</code></pre>
+		</td>
+	</tr>
 
-	</td>
-	<td>
-		<pre><code class="objective-c">
-#import "AppDelegate.h"
-#import "ViewController.h"
+	<tr>
+		<td class = "discription">
+`CalculatorDataSource` 프로토콜은 일반화된 피연산 데이터들을 model로 받아올 수 있도록 해줍니다. 여기서는 다른 클래스로 부터 다른 클래스로 데이터를 받오는 역할로 쓰였습니다.
+		</td>
+  		<td class="code">
+			<pre><code class="objective-c">
+@protocol CalculatorDataSource <NSObject>
+			</code></pre>
+		</td>
+	</tr>
 
-@interface AppDelegate ()
-
-@end
-
-@implementation AppDelegate
-		</code></pre>
-	</td>
-</tr>
-
-<tr>
-	<td>
-참고적으로 저는 공부를 위해서 스토리보드를 쓰지 않고 굳이 이렇게 하였습니다.
-윈도우를 직접만들어 보는 것이 원리를 파악하는데 도움이 된다고 생각했습니다.  
-	</td>
-	<td>
-		<pre><code class="objective-c">
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    self.window =  [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
-    return YES;
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
+	<tr>
+		<td class = "discription">
+//일종의 가상함수로서 나중에 구현햐야한다.
+		</td>
+  		<td class="code">
+			<pre><code class="objective-c">
+@required
+- (ButtonRecognizer)calculationTabbed;
+- (NSDictionary *)variableInTextField;
+@optional
 
 @end
-		</code></pre>
-	</td>
-</tr>
+			</code></pre>
+		</td>
+	</tr>
+
+	<tr>
+		<td class = "discription">
+`CalculatorModel` 클래스는 MVC 패턴을 차용한 것으로 모델에 해당됩니다. `ButtonRecognizer` 플래그를 통해 어떤 계산을 요청받았는지 확인하고 `result` 메소드를 통해 결과를 전달 합니다.
+		</td>
+  		<td class="code">
+			<pre><code class="objective-c">
+@interface CalculatorModel : NSObject {
+
+}
+@property (nonatomic, strong) id <CalculatorDataSource> dataSource;
+
+-(NSNumber *)result;
+-(NSString *)stringWithButtonRecognizer:(ButtonRecognizer)input;
+
+@end			</code></pre>
+		</td>
+	</tr>
+
+	<tr>
+		<th class="discription">
+			<h3>CalculatorModel.m</h3>
+		</th>
+	
+		<th class= "code">
+		</th>
+	
+	</tr>
+
+
+	<tr>
+		<td class = "discription">
+		</td>
+  		<td class="code">
+			<pre><code class="objective-c">
+@implementation CalculatorModel{
+    NSDictionary *finalResult;
+    NSNumber *result;
+}
+@synthesize dataSource;
+			</code></pre>
+		</td>
+	</tr>
+
+	<tr>
+		<td class = "discription">
+눌린 버튼을 emun으로서 인식하기 위한 메소드입니다. 플래그를 사용하여 동작시키는 방식을 이용하였습니다.
+		</td>
+  		<td class="code">
+			<pre><code class="objective-c">
+-(NSString *)stringWithButtonRecognizer:(ButtonRecognizer)input{
+    NSArray *ar = @[
+                    @"0",
+                    @"1",
+                    @"2",
+                    @"3",
+                    @"4",
+                    @"5"
+                    ];
+    return (NSString *)[ar objectAtIndex:input];
+}
+			</code></pre>
+		</td>
+	</tr>
+
+	<tr>
+		<td class = "discription">
+데이터가 해당 프로토콜을 준수하고있다면 data 로 받아들입니다.
+		</td>
+  		<td class="code">
+			<pre><code class="objective-c">
+-(void) setDataSource:(id<CalculatorDataSource>) newDataSource{
+    if(![newDataSource conformsToProtocol: @protocol(CalculatorDataSource)])
+    {
+        newDataSource = nil;
+        NSLog(@"Calcuator data : non-conforming data source.");
+    }
+    else{
+        dataSource = newDataSource;     }
+}
+			</code></pre>
+		</td>
+	</tr>
+
+	<tr>
+		<td class = "discription">
+아래는 모두 실질 적으로 mortgage 계산기가 어떻게 계산을 하는가에 대한 내용입니다. 아래의 공식들은 모두 에드워드 로커 교수님께서 연구하신 것을 재공해 주신 것입니다.		
+		</td>
+  		<td class="code">
+			<pre><code class="objective-c">
+-(NSNumber *)result{
+    finalResult = dataSource.variableInTextField;
+    ButtonRecognizer button = [dataSource calculationTabbed];
+    double FV= [[finalResult objectForKey:[self stringWithButtonRecognizer:FVbuttonTabbed]] doubleValue];
+    double Pmt= [[finalResult objectForKey:[self stringWithButtonRecognizer:PmtbuttonTabbed]] doubleValue];
+    double Rate= [[finalResult objectForKey:[self stringWithButtonRecognizer:IbuttonTabbed]] doubleValue];
+    double Term= [[finalResult objectForKey:[self stringWithButtonRecognizer:NbuttonTabbed]] doubleValue];
+    double principal =[[finalResult objectForKey:[self stringWithButtonRecognizer:PVbuttonTabbed]] doubleValue];
+    double X;
+			</code></pre>
+		</td>
+	</tr>
+
+	<tr>
+		<td class = "discription">
+각버튼이 눌력을 때 해당 계산을 수행합니다.
+		</td>
+  		<td class="code">
+			<pre><code class="objective-c">
+    switch (button) {
+            case NbuttonTabbed:
+                
+		//비공개
+		
+		break;
+            case NperYrbuttonTabbed:
+                
+                
+		//비공개
+		
+                break;
+            case PmtbuttonTabbed:
+                
+                
+		//비공개
+		
+                break;
+                
+            case PVbuttonTabbed:
+                
+                
+		//비공개
+		
+                break;
+                
+            case IbuttonTabbed:
+                
+		//비공개
+		
+                break;
+            case FVbuttonTabbed:
+                
+		//비공개
+		
+                break;
+            default:
+                break;
+    }
+    return result;
+}
+
+-(void)alert{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry"
+                                                    message:@"This is NOT calculated, enter by hand."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"dismiss"
+                                          otherButtonTitles:nil];
+    [alert show];
+
+}
+
+
+
+
+@end
+			</code></pre>
+		</td>
+	</tr>
+
 </table>
+</div>
